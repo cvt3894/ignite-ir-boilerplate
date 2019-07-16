@@ -1,6 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from '@react-native-community/async-storage'
 // import _ from 'lodash'
 /* ------------- Types and Action Creators ------------- */
 

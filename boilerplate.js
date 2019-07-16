@@ -89,7 +89,7 @@ async function install (context) {
     { template: 'README.md', target: 'README.md' },
     { template: 'ignite.json.ejs', target: 'ignite/ignite.json' },
     { template: '.editorconfig', target: '.editorconfig' },
-    { template: '.babelrc', target: '.babelrc' },
+    { template: 'babel.config.js', target: 'babel.config.js' },
     { template: 'Tests/Setup.js.ejs', target: 'Tests/Setup.js' },
     { template: 'storybook/storybook.ejs', target: 'storybook/storybook.js' },
     { template: '.env.example', target: '.env.example' }
@@ -235,19 +235,6 @@ async function install (context) {
   } catch (e) {
     ignite.log(e)
     throw e
-  }
-
-  // git configuration
-  const gitExists = await filesystem.exists('./.git')
-  if (!gitExists && !parameters.options['skip-git'] && system.which('git')) {
-    // initial git
-    const spinner = print.spin('configuring git')
-
-    // TODO: Make husky hooks optional
-    const huskyCmd = '' // `&& node node_modules/husky/bin/install .`
-    await system.run(`git init . && git add . && git commit -m "Initial commit." ${huskyCmd}`)
-
-    spinner.succeed(`configured git`)
   }
 
   const perfDuration = parseInt(((new Date()).getTime() - perfStart) / 10) / 100
